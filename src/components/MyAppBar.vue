@@ -7,6 +7,7 @@
 
 <script>
 import Applicationable from "vuetify/es5/mixins/applicationable"
+import ApplicationableUtil from "@/util/applicationable"
 
 export default {
 
@@ -29,40 +30,18 @@ export default {
 
   data() {
     return {
-      top: 0,
       height: 0,
-      oldheight: 0,
       toggle: false
     }
   },
 
   mounted() {
-
-    this.top = this.$vuetify.application.top
-    this.height = this.$refs.container.clientHeight
-    this.oldheight = this.height
-
-    this.$vuetify.application.application.top.myappbar = this.height
-    this.$vuetify.application.update("top")
-
-    this.$refs.container.style.top = this.top + "px"
-
-    this.$root.$on("recalc", async (e) => {
-      // console.log("recalc: " + e.diff + " " + this.top + " " + e.top)
-      if (e.diff > 0 && this.top >= e.top + e.diff) {
-        this.top = this.top + e.diff
-        this.$refs.container.style.top = this.top + "px"
-      } else if (e.diff < 0 && e.top < this.top) {
-        this.top = this.top + e.diff
-        this.$refs.container.style.top = this.top + "px"
-      }
-    })
+    this.applicationableUtil.mounted()
   },
 
   computed: {
 
     style() {
-      // return "top: " + this.top + "px; height: " + this.height + "px; background-color: " + this.color
       return "background-color: " + this.color
     },
 
@@ -74,24 +53,15 @@ export default {
   methods: {
 
     updateApplication() {
-
-      const diff = this.height - this.oldheight
-      this.oldheight = this.height
-
-      this.$root.$emit("recalc", {
-        diff: diff,
-        top: this.top
-      })
-
-      return this.$vuetify.application.top + diff
+      if (!this.applicationableUtil) {
+        this.applicationableUtil = new ApplicationableUtil(this)
+      }
+      return this.applicationableUtil.updateApplication()
     },
 
-    async toggleButton() {
-
+    toggleButton() {
       this.toggle = !this.toggle
-
-      await this.$nextTick()
-      this.height = this.$refs.container.clientHeight
+      this.applicationableUtil.updateHeight()
     }
   }
 }

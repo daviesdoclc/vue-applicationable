@@ -3,11 +3,13 @@
     <v-app-bar app color="primary" dark></v-app-bar>
     <MyAppBar app color="black" ref="black"></MyAppBar>
     <MyAppBar app color="red" ref="red"></MyAppBar>
+    <MyAppBar app color="green" ref="green"></MyAppBar>
     <v-content>
       <div class="flex fill-height" style="overflow: scroll">
         <div style="height: 2000px;">
           <v-btn @click="toggleBlack">Toggle black</v-btn>
           <v-btn @click="toggleRed">Toggle red</v-btn>
+          <v-btn @click="toggleGreen">Toggle green</v-btn>
         </div>
       </div>
     </v-content>
@@ -50,6 +52,10 @@ export default {
 
     toggleRed() {
       this.$refs.red.toggleButton()
+    },
+
+    toggleGreen() {
+      this.$refs.green.toggleButton()
     }
   }
 }
