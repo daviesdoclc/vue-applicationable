@@ -1,15 +1,15 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark></v-app-bar>
-    <MyAppBar app color="black" ref="black"></MyAppBar>
-    <MyAppBar app color="red" ref="red"></MyAppBar>
-    <MyAppBar app color="green" ref="green"></MyAppBar>
+    <MyAppBar1 ref="myappbar1"></MyAppBar1>
+    <MyAppBar2 ref="myappbar2"></MyAppBar2>
+    <MyAppBar3 ref="myappbar3"></MyAppBar3>
     <v-content>
       <div class="flex fill-height" style="overflow: scroll">
         <div style="height: 2000px;">
-          <v-btn @click="toggleBlack">Toggle black</v-btn>
-          <v-btn @click="toggleRed">Toggle red</v-btn>
-          <v-btn @click="toggleGreen">Toggle green</v-btn>
+          <v-btn @click="toggleMyAppBar1">Toggle1</v-btn>
+          <v-btn @click="toggleMyAppBar2">Toggle2</v-btn>
+          <v-btn @click="toggleMyAppBar3">Toggle3</v-btn>
         </div>
       </div>
     </v-content>
@@ -32,30 +32,34 @@
 </style>
 
 <script>
-import MyAppBar from "@/components/MyAppBar"
+import MyAppBar1 from "@/components/MyAppBar1"
+import MyAppBar2 from "@/components/MyAppBar2"
+import MyAppBar3 from "@/components/MyAppBar3"
 
 export default {
 
   name: "App",
 
   components: {
-    MyAppBar
+    MyAppBar1,
+    MyAppBar2,
+    MyAppBar3
   },
 
   data: () => ({
   }),
 
   methods: {
-    toggleBlack() {
-      this.$refs.black.toggleButton()
+    toggleMyAppBar1() {
+      this.$refs.myappbar1.toggleButton()
     },
 
-    toggleRed() {
-      this.$refs.red.toggleButton()
+    toggleMyAppBar2() {
+      this.$refs.myappbar2.toggleButton()
     },
 
-    toggleGreen() {
-      this.$refs.green.toggleButton()
+    toggleMyAppBar3() {
+      this.$refs.myappbar3.toggleButton()
     }
   }
 }
